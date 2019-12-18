@@ -1,7 +1,7 @@
 # Store information about player records
 
 from constants import *
-import cPickle as pickle
+import pickle as pickle
 import grades
 import games
 
@@ -15,7 +15,7 @@ bad_records = {}
 # so we don't try to load them for player's {best,worst}.
 # Do store them however, so when the songs appear again they'll be valid.
 def verify(recordkeys):
-  for k in records.keys():
+  for k in list(records.keys()):
     if k[0] not in recordkeys:
       bad_records[k] = records[k]
       del(records[k])
@@ -63,7 +63,7 @@ def best(index, diffs, game):
   game = games.VERSUS2SINGLE.get(game, game)
   if not isinstance(diffs, list): diffs = [diffs]
   index -= 1
-  r = [(v[0], k[0]) for k, v in records.items() if
+  r = [(v[0], k[0]) for k, v in list(records.items()) if
        (k[1] in diffs and k[2] == game)] 
   if len(r) == 0: return None
   r.sort()
@@ -76,7 +76,7 @@ def worst(index, diffs, game):
   game = games.VERSUS2SINGLE.get(game, game)
   index -= 1
   if not isinstance(diffs, list): diffs = [diffs]
-  r = [(v[0], k[0]) for k, v in records.items() if
+  r = [(v[0], k[0]) for k, v in list(records.items()) if
        (k[1] in diffs and k[2] == game)] 
   if len(r) == 0: return None
   r.sort()
@@ -88,7 +88,7 @@ def like(index, diffs, game):
   game = games.VERSUS2SINGLE.get(game, game)
   if not isinstance(diffs, list): diffs = [diffs]
   index -= 1
-  r = [(v[2], k[0]) for k, v in records.items() if
+  r = [(v[2], k[0]) for k, v in list(records.items()) if
        (k[1] in diffs and k[2] == game)] 
   if len(r) == 0: return None
   r.sort()
@@ -101,7 +101,7 @@ def dislike(index, diffs, game):
   game = games.VERSUS2SINGLE.get(game, game)
   index -= 1
   if not isinstance(diffs, list): diffs = [diffs]
-  r = [(v[2], k[0]) for k, v in records.items() if
+  r = [(v[2], k[0]) for k, v in list(records.items()) if
        (k[1] in diffs and k[2] == game)] 
   if len(r) == 0: return None
   r.sort()

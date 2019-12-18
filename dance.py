@@ -336,9 +336,9 @@ def play(screen, playlist, configs, songconf, playmode):
     for pid, player in enumerate(players):
       player.set_song(current_song, diff[pid], songdata.lyricdisplay)
 
-    print _("Playing"), songfn
-    print songdata.title.encode(STDOUT_ENCODING, "replace"), "by",
-    print songdata.artist.encode(STDOUT_ENCODING, "replace")
+    print(_("Playing"), songfn)
+    print(songdata.title.encode(STDOUT_ENCODING, "replace"), "by", end=' ')
+    print(songdata.artist.encode(STDOUT_ENCODING, "replace"))
 
     if dance(screen, songdata, players, prevscr, first, game):
       first = False
@@ -533,7 +533,7 @@ def dance(screen, song, players, prevscr, ready_go, game):
 
     if screenshot:
       fn = os.path.join(rc_path, "screenshot.bmp")
-      print _("Saving a screenshot to"), fn
+      print(_("Saving a screenshot to"), fn)
       pygame.image.save(screen, fn)
       screenshot = False
 
@@ -547,5 +547,5 @@ def dance(screen, song, players, prevscr, ready_go, game):
       songtext.zout()
       grptext.zout()
 
-  if fpstext: print _("Average FPS for this song was %d.") % fpstext.fps()
+  if fpstext: print(_("Average FPS for this song was %d.") % fpstext.fps())
   return songFailed

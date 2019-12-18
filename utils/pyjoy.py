@@ -9,15 +9,15 @@ def main():
 
   # look for joysticks
   totaljoy = pygame.joystick.get_count()
-  print totaljoy,"joysticks total -",
+  print(totaljoy,"joysticks total -", end=' ')
 
   if totaljoy < 1:
-    print "bailing out. Check http://clickass.org/~tgz/pyddr/faq.html"
+    print("bailing out. Check http://clickass.org/~tgz/pyddr/faq.html")
     sys.exit()
 
   ddrmat = pygame.joystick.Joystick(totaljoy-1)
   ddrmat.init()
-  print "last one is",ddrmat.get_numaxes(),"axes and",ddrmat.get_numbuttons(),"buttons"
+  print("last one is",ddrmat.get_numaxes(),"axes and",ddrmat.get_numbuttons(),"buttons")
   
   # set up the screen and all that stuff
   screen = pygame.display.set_mode((640, 480), HWSURFACE|DOUBLEBUF) 
@@ -41,36 +41,36 @@ def main():
     # joystick
 
     if event.type == JOYBUTTONDOWN:
-      print "pressed button",event.button
+      print("pressed button",event.button)
     if event.type == JOYBUTTONUP:
-      print "released button",event.button
+      print("released button",event.button)
 
     if event.type == JOYAXISMOTION:
       for i in range(8):
         if event.axis == i:
-          print "axis",i,"moved to",event.value
+          print("axis",i,"moved to",event.value)
 
     # keyboard
 
     if event.type == KEYDOWN:
-        print "key hit: code", event.key
+        print("key hit: code", event.key)
         if event.key == K_LEFT:
-            print "LEFT keypress"
+            print("LEFT keypress")
         if event.key == K_DOWN:
-            print "DOWN keypress"
+            print("DOWN keypress")
         if event.key == K_UP:
-            print "UP keypress"
+            print("UP keypress")
         if event.key == K_RIGHT:
-            print "RIGHT keypress"
+            print("RIGHT keypress")
     if event.type == KEYUP:
         if event.key == K_LEFT:
-            print "LEFT unpress"
+            print("LEFT unpress")
         if event.key == K_DOWN:
-            print "DOWN unpress"
+            print("DOWN unpress")
         if event.key == K_UP:
-            print "UP unpress"
+            print("UP unpress")
         if event.key == K_RIGHT:
-            print "RIGHT unpress"
+            print("RIGHT unpress")
                    
 #end
     

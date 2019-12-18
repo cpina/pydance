@@ -244,7 +244,7 @@ class Player(object):
       arr, arrfx = self.theme.toparrows(self.top, self.pid)
       self.toparr = arr
       self.toparrfx = arrfx
-      self.listeners.extend(arr.values() + arrfx.values())
+      self.listeners.extend(list(arr.values()) + list(arrfx.values()))
       self.holdtext = HoldJudgeDisp(self.pid, self, self.game)
       self.listeners.append(self.holdtext)
     else:
@@ -258,8 +258,8 @@ class Player(object):
                      self.theme.arrows(self.pid * 2 + 1)]
       self.toparr = [arr1, arr2]
       self.toparrfx = [arrfx1, arrfx2]
-      self.listeners.extend(arr1.values() + arr2.values() +
-                            arrfx1.values() + arrfx2.values())
+      self.listeners.extend(list(arr1.values()) + list(arr2.values()) +
+                            list(arrfx1.values()) + list(arrfx2.values()))
       self.holdtext = [HoldJudgeDisp(self.pid * 2, self, self.game),
                        HoldJudgeDisp(self.pid * 2 + 1, self, self.game)]
       self.listeners.extend(self.holdtext)

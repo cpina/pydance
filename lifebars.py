@@ -8,7 +8,7 @@ from constants import *
 from i18n import *
 from fonttheme import FontTheme
 
-LIVING, FAILED, WON = range(3)
+LIVING, FAILED, WON = list(range(3))
 
 # The base lifebar class from which most other ones inherit.
 class AbstractLifeBar(Listener, pygame.sprite.Sprite):

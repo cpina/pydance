@@ -64,7 +64,7 @@ class Config(object):
   # Write the filename back out to disk.
   def write(self, filename):
     fi = file(filename, "w")
-    keys = self.user.keys()
+    keys = list(self.user.keys())
     keys.sort()
     for key in keys:
       if key not in self.master or self.master[key] != self.user[key]:

@@ -74,4 +74,4 @@ class Lyrics(object):
       self._channels[chan] = LyricChannel(480 - (chan + 1) * 32, color)
     self._channels[chan].addlyric(time, lyric)
 
-  def channels(self): return self._channels.values()
+  def channels(self): return list(self._channels.values())

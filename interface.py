@@ -428,8 +428,8 @@ class ListBox(pygame.sprite.Sprite):
     self.image = pygame.Surface([self._w, self._h * self._count],
                                 SRCALPHA, 32)
     self.image.fill([0, 0, 0, 0])
-    for i, y in zip(range(self._count + 2),
-                    range(-self._h / 2, self._h * (self._count + 1), self._h)):
+    for i, y in zip(list(range(self._count + 2)),
+                    list(range(-self._h / 2, self._h * (self._count + 1), self._h))):
       idx = (self._idx + i - 1) % len(self._items)
       t = self._items[idx]
       r = t.get_rect()
@@ -556,7 +556,7 @@ class InterfaceWindow(object):
 
     if screenshot:
       fn = os.path.join(rc_path, "screenshot.bmp")
-      print "Saving a screenshot to", fn
+      print("Saving a screenshot to", fn)
       pygame.image.save(self._screen, fn)
 
     self._sprites.clear(self._screen, self._bg)

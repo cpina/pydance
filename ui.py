@@ -40,7 +40,7 @@ MAX_KEEP_PYGAME_EVENTS = 128
 # The special ID "QUIT" is a request to terminate the program asap.
 (PASS, CANCEL, UP, UPLEFT, LEFT, DOWNLEFT, DOWN, DOWNRIGHT,
  RIGHT, UPRIGHT, CENTER, OPTIONS, RANDOM, SCREENSHOT,
- CONFIRM, PGUP, PGDN, FULLSCREEN, SORT, QUIT) = range(20)
+ CONFIRM, PGUP, PGDN, FULLSCREEN, SORT, QUIT) = list(range(20))
 EVNAMES = ("PASS", "CANCEL", "UP", "UPLEFT", "LEFT", "DOWNLEFT", "DOWN", "DOWNRIGHT",
 "RIGHT", "UPRIGHT", "CENTER", "OPTIONS", "RANDOM", "SCREENSHOT",
 "CONFIRM", "PGUP", "PGDN", "FULLSCREEN", "SORT", "QUIT")
@@ -222,11 +222,11 @@ valves = {}
 valvenames = {}
 
 # Create EventValves for all possible semantic events.
-for evname, evid in control_events.iteritems():
+for evname, evid in control_events.items():
   valves[evname] = EventValve(-1, evid, event_buffer, 0)
   valvenames[(-1, evid)] = evname
 for pid in range(MAX_PLAYERS):
-  for evname, evid in dance_events.iteritems():
+  for evname, evid in dance_events.items():
     fullname = "P%d_%s" % (pid+1, evname)
     valves[fullname] = EventValve(pid, evid, event_buffer, 0)
     valvenames[(pid,evid)] = fullname
@@ -545,7 +545,7 @@ class EventPlumbing(object):
     when you call this function .
     '''
     try:
-      iter = self.container.itervalues()
+      iter = iter(self.container.values())
     except AttributeError:
       iter = self.container
 
@@ -581,8 +581,8 @@ class EventPlumbing(object):
           f.write("\n")
           f.write(repr(self))
       except:
-        print _("W: Unable to write input configuration file %s") % (self.filename,)
-        print sys.exc_info()[1]
+        print(_("W: Unable to write input configuration file %s") % (self.filename,))
+        print(sys.exc_info()[1])
 
   def visit(self, visitor):
     '''
@@ -591,10 +591,10 @@ class EventPlumbing(object):
     '''
     state = {}
     try:
-      iter = self.container.keys()
+      iter = list(self.container.keys())
       iter.sort()
     except AttributeError:
-      iter = range(len(self.container))
+      iter = list(range(len(self.container)))
 
     for idx in iter:
       for x in self.container[idx]:
@@ -607,9 +607,9 @@ class EventPlumbing(object):
     values of all replaced valves will be summed up and added to newvalve.
     '''
     try:
-      iter = self.container.keys()
+      iter = list(self.container.keys())
     except AttributeError:
-      iter = range(len(self.container))
+      iter = list(range(len(self.container)))
 
     already_counted = set()
 
@@ -758,7 +758,7 @@ def read_plumbing_templates():
             controller_name = controller_name[:hash].strip()
 
           pb = EventPlumbing([], inp[end+1:])
-          print (_("Loaded %s") % (fn,))
+          print((_("Loaded %s") % (fn,)))
           pb.filename = fn
 
           if controller_index > 0:
@@ -773,8 +773,8 @@ def read_plumbing_templates():
           pbtlst[controller_index] = pb
 
         except:
-          print _("W: Unable to load input configuration file %s") % (fn,)
-          print sys.exc_info()[1]
+          print(_("W: Unable to load input configuration file %s") % (fn,))
+          print(sys.exc_info()[1])
 
 def get_plumbing(name, idx):
   if name in plumbing_templates:
@@ -788,7 +788,7 @@ def get_plumbing(name, idx):
     pb = lst[i].clone()
 
     if i != idx:
-      print(_("Transposing %s to get mapping for %s #%d") % (pb.header, name, idx))
+      print((_("Transposing %s to get mapping for %s #%d") % (pb.header, name, idx)))
       pb.transpose_player(idx - i)
       pb.menu_controls_enabled(False)  # don't want player 2 to control menu
 
@@ -812,7 +812,7 @@ def get_plumbing(name, idx):
 
       pb.header = pb.header[:hash] + (" #%d]" % (idx,) )
     else:
-      print(_("Using mapping for %s #%d") % (name, idx))
+      print((_("Using mapping for %s #%d") % (name, idx)))
 
   else:
     if name == "keyboard":
@@ -821,7 +821,7 @@ def get_plumbing(name, idx):
       pb.header = "[keyboard]"
 
     else:
-      print(_("Using default mapping for %s #%d") % (name, idx))
+      print((_("Using default mapping for %s #%d") % (name, idx)))
       pb = default_controller_plumbing.clone()
       pb.filename = "10-" + "".join(ch.lower() for ch in name if ch.isalnum())
       pb.header = "[" + name
@@ -910,7 +910,7 @@ class DebugValves(object):
   def visit(self, inputs, outputs):
     for valve in outputs:
       if valve.pressure != valve.start_pressure:
-        print("%s %s" % (id(valve),valve.__dict__))
+        print(("%s %s" % (id(valve),valve.__dict__)))
 
 class Controller(object):
   def __init__(self, pygame):
@@ -1430,19 +1430,19 @@ if __name__ == "__main__":
     pb = EventPlumbing([],'=')
     assert 1 == 0
   except SyntaxError as x:
-    print('"%s" => "%s"' % ("Missing '=' or empty right side in \"=\"",x))
+    print(('"%s" => "%s"' % ("Missing '=' or empty right side in \"=\"",x)))
 
   try:
     pb = EventPlumbing([],'= UP')
     assert 1 == 0
   except SyntaxError as x:
-    print('"%s" => "%s"' % ("Empty left side in \"= UP\"",x))
+    print(('"%s" => "%s"' % ("Empty left side in \"= UP\"",x)))
 
   try:
     pb = EventPlumbing([],'0 = GORTZ')
     assert 1 == 0
   except SyntaxError as x:
-    print('"%s" => "%s"' % ("Invalid event name \"GORTZ\"",x))
+    print(('"%s" => "%s"' % ("Invalid event name \"GORTZ\"",x)))
 
   lst = []
   pb = EventPlumbing(lst,'53 = QUIT')
@@ -2077,10 +2077,10 @@ A- = P1_LEFT
         for ev in lst:
           print(ev)
       for joy in range(len(ui.controllers)):
-        print("[Controller %d]" % joy)
-        print(repr(ui.controllers[joy].plumbing))
+        print(("[Controller %d]" % joy))
+        print((repr(ui.controllers[joy].plumbing)))
         ui.controllers[joy].plumbing.visit(DebugValves())
-        print("Total number of valve objects: %d" % ui.count_valves(joy))
+        print(("Total number of valve objects: %d" % ui.count_valves(joy)))
     else:
       dir = evid
       pressed=(255,0,0)
@@ -2093,7 +2093,7 @@ A- = P1_LEFT
       if pid >= 0 and dir == RIGHT: screen.fill(pressed, rect=pygame.Rect(200,100,100,100))
       if pid < 0 and dir == CONFIRM: screen.fill(pressed, rect=pygame.Rect(100,100,100,100))
       pygame.display.flip()
-      print(evstr(pid,evid))
+      print((evstr(pid,evid)))
 
 ####################################################################################################
 #

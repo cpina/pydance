@@ -29,7 +29,7 @@ class AbstractJudge(Listener):
   # Handle a key press and see if it can be associated with an upcoming
   # arrow; rate it if so.
   def handle_key(self, dir, curtime):
-    times = self._steps.keys()
+    times = list(self._steps.keys())
     times.sort()
     etime = 0.0
     done = 0
@@ -58,7 +58,7 @@ class AbstractJudge(Listener):
 
   # Mark arrows that are very old as misses.
   def expire_arrows(self, curtime):
-    times = self._steps.keys()
+    times = list(self._steps.keys())
     misses = ""
     for time in times:
       if self._is_miss(curtime, time) and self._steps[time]:

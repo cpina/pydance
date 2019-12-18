@@ -6,7 +6,7 @@ import games
 import zipfile
 import dircache
 
-from cStringIO import StringIO
+from io import StringIO
 
 from listener import Listener
 

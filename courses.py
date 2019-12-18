@@ -58,17 +58,17 @@ class AbstractCourse(object):
     elif isinstance(diff, list):
       possible = []
       if isinstance(diff[0], int):
-        for name, rating in song.difficulty[self.gametype].items():
+        for name, rating in list(song.difficulty[self.gametype].items()):
           if rating in diff: possible.append(name)
       elif isinstance(diff[0], str):
-        for name in song.difficulty[self.gametype].keys():
+        for name in list(song.difficulty[self.gametype].keys()):
           if name in diff: possible.append(name)
       if len(possible) > 0: return random.choice(possible)
     return False
 
   def __iter__(self): return self
 
-  def next(self):
+  def __next__(self):
     # We're done.
     if self.index == len(self.songs): raise StopIteration
     name, diff, mods = self.songs[self.index]
@@ -76,9 +76,9 @@ class AbstractCourse(object):
 
     a, b = 0, 0
     if isinstance(diff, list): pass
-    elif diff.find("..") != -1: a, b = map(int, diff.split(".."))
+    elif diff.find("..") != -1: a, b = list(map(int, diff.split("..")))
     elif len(diff) < 3: a, b = int(diff), int(diff)
-    if a or b: diff = range(a, b + 1)
+    if a or b: diff = list(range(a, b + 1))
 
     # Check for player's best/worst/likes/dislikes. There are stored
     # as a tuple of (type, number).
@@ -114,7 +114,7 @@ class AbstractCourse(object):
         folder, dummy = name.split("/")
         folder = folder.lower()
         if folder in self.all_songs:
-          songs = [s for s in self.all_songs[folder].values() if (s,diff) not in self.past_songs]
+          songs = [s for s in list(self.all_songs[folder].values()) if (s,diff) not in self.past_songs]
         else:
           error.ErrorMessage(self.screen, folder + _(" was not found."))
           raise StopIteration
@@ -122,7 +122,7 @@ class AbstractCourse(object):
       else:
         # Any random song.
         songs = []
-        for v in self.all_songs.values(): songs.extend(v.values())
+        for v in list(self.all_songs.values()): songs.extend(list(v.values()))
 
       songs = [s for s in songs if (s,diff) not in self.past_songs and self._find_difficulty(s, diff)]
 

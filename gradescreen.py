@@ -200,19 +200,19 @@ class GradingScreen(InterfaceWindow):
     self.players = players
     for p in players:
       if p == None: continue
-      print "Player %d:" % (p.pid + 1)
+      print("Player %d:" % (p.pid + 1))
       grade = p.grade.grade(p.failed)
       stepcount = p.stats.arrow_count
       steps = (grade, p.difficulty, stepcount, p.stats.maxcombo)
       ratings = (p.stats["V"], p.stats["P"], p.stats["G"],
                  p.stats["O"], p.stats["B"], p.stats["M"],
                  p.stats.good_holds, p.stats.hold_count)
-      print _("GRADE: %s (%s) - total steps: %d; best combo: %d") % steps
-      print _("V: %d P: %d G: %d O: %d B: %d M: %d - %d/%d holds") % ratings
+      print(_("GRADE: %s (%s) - total steps: %d; best combo: %d") % steps)
+      print(_("V: %d P: %d G: %d O: %d B: %d M: %d - %d/%d holds") % ratings)
       try:
-        print _("Average off: %0.3f, standard deviation %0.2f") % p.stats.times()
+        print(_("Average off: %0.3f, standard deviation %0.2f") % p.stats.times())
       except: pass # Python 2.2
-      print
+      print()
 
     if self.players[0] == None: return None
     elif self.players[0].stats.arrow_count == 0: return None

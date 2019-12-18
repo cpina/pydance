@@ -1,7 +1,7 @@
 # Define and precompute font themes.
 
 import pygame
-from ConfigParser import *
+from configparser import *
 import os, dircache
 from constants import *
 
@@ -57,7 +57,7 @@ class FontTheme:
 
   def themes(cls):
     if cls._themes == {}: cls.load_themes()
-    return cls._themes.keys()
+    return list(cls._themes.keys())
 
   themes = classmethod(themes)
 

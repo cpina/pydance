@@ -64,7 +64,7 @@ class Announcer(Listener):
     self.say('ingame', rng)
 
   def say(self, sec, mood=(0, 100)):
-    if not self.sections.has_key(sec) or len(self.sections[sec]) == 0: return
+    if sec not in self.sections or len(self.sections[sec]) == 0: return
     l = len(self.sections[sec])
     # Normalize mood wrt the number of choices
     try:

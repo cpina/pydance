@@ -43,7 +43,7 @@ MAP_EQUIVS = {
   "EZ2REAL": ["REALVERSUS", "REALCOUPLE", "REALDOUBLE"],
   }
 
-for mode, equivs in MAP_EQUIVS.items():
+for mode, equivs in list(MAP_EQUIVS.items()):
   for eq in equivs: STEP_MAPPINGS[eq] = STEP_MAPPINGS[mode]
 
 # This is a pseudorandom number generator that we're guaranteed will
@@ -364,7 +364,7 @@ class PanelTransform(Transform):
         accept[dir] = "".join([c for c in PanelTransform.accept[dir]
                                if c in self.new_panels])
     for dir in self.orig_panels:
-      if not accept.has_key(dir):
+      if dir not in accept:
         accept[dir] = "".join(self.new_panels)
     return accept
 
@@ -498,7 +498,7 @@ def generate_mode(song, difficulty, target_mode, pid):
   elif target_mode in games.ONLY_COUPLE: mode = "COUPLE"
   elif target_mode in games.DOUBLE: mode = "DOUBLE"
 
-  if song.steps.has_key(mode):
+  if mode in song.steps:
     # Dance ManiaX can be found as DWI files, with exact visual mappings.
     # Cheat and use that.
     if target_mode[:3] == "DMX":
@@ -508,12 +508,12 @@ def generate_mode(song, difficulty, target_mode, pid):
 
     steps = song.steps[mode][difficulty]
     T = PanelTransform
-  elif song.steps.has_key(equiv[mode]):
+  elif equiv[mode] in song.steps:
     steps = song.steps[equiv[mode]][difficulty]
     mode = equiv[mode]
     if len(games.GAMES[target_mode].dirs) == 4: T = FiveToFourTransform
     else: T = PanelTransform
-  else: print "This shouldn't happen! Email pyddr-devel@icculus.org."
+  else: print("This shouldn't happen! Email pyddr-devel@icculus.org.")
 
   if mode in games.COUPLE: steps = steps[pid]
 

@@ -11,18 +11,18 @@ from i18n import *
 
 # fuck you, Python.
 def print_help():
-  print
-  print _("Usage: %s [options]") % sys.argv[0]
-  print _(" -h, --help         display this help text and exit")
-  print _(" -v, --version      display the version and exit")
-  print _(" -f, --filename     load and play a step file")
-  print _(" -m, --mode         the mode to play the file in (default SINGLE)")
-  print _(" -d, --difficulty   the difficult to play the file (default BASIC)")
+  print()
+  print(_("Usage: %s [options]") % sys.argv[0])
+  print(_(" -h, --help         display this help text and exit"))
+  print(_(" -v, --version      display the version and exit"))
+  print(_(" -f, --filename     load and play a step file"))
+  print(_(" -m, --mode         the mode to play the file in (default SINGLE)"))
+  print(_(" -d, --difficulty   the difficult to play the file (default BASIC)"))
   raise SystemExit
 
 def print_version():
-  print _("pydance %s by Joe Wreschnig, Brendan Becker, and others") % VERSION
-  print "pyddr-discuss@icculus.org - http://icculus.org/pyddr"
+  print(_("pydance %s by Joe Wreschnig, Brendan Becker, and others") % VERSION)
+  print("pyddr-discuss@icculus.org - http://icculus.org/pyddr")
   raise SystemExit
 
 if len(sys.argv) < 2: pass 
@@ -65,7 +65,7 @@ def set_display_mode():
 # Load a single song (given the filename) and then play it on the
 # given difficulty.
 def play_and_quit(fn, mode, difficulty):
-  print _("Entering debug (play-and-quit) mode.")
+  print(_("Entering debug (play-and-quit) mode."))
   screen = set_display_mode()  
   pygame.display.set_caption("pydance " + VERSION)
   pygame.mouse.set_visible(0)
@@ -91,15 +91,15 @@ def load_files(screen, files, type, Ctr, args):
   r.center = [320, 240]
   for f in files:
     try: objects.append(Ctr(*((f,) + args)))
-    except RuntimeError, message:
-      print _("E:"), f
-      print _("E:"), message
-      print
-    except Exception, message:
-      print _("E: Unknown error loading"), f
-      print _("E:"), message
-      print _("E: Please contact the developers (pyddr-devel@icculus.org).")
-      print
+    except RuntimeError as message:
+      print(_("E:"), f)
+      print(_("E:"), message)
+      print()
+    except Exception as message:
+      print(_("E: Unknown error loading"), f)
+      print(_("E:"), message)
+      print(_("E: Please contact the developers (pyddr-devel@icculus.org)."))
+      print()
     pct += inc
     img = pbar.render(pct)
     pygame.display.update(screen.blit(img, r))
@@ -112,14 +112,14 @@ else: pass
 
 # Actually start the program running.
 def main():
-  print "pydance", VERSION, "<pyddr-discuss@icculus.org> - irc.freenode.net/#pyddr"
+  print("pydance", VERSION, "<pyddr-discuss@icculus.org> - irc.freenode.net/#pyddr")
 
   if mainconfig["usepsyco"]:
     try:
       import psyco
-      print _("Psyco optimizing compiler found. Using psyco.full().")
+      print(_("Psyco optimizing compiler found. Using psyco.full()."))
       psyco.full()
-    except ImportError: print _("W: Psyco optimizing compiler not found.")
+    except ImportError: print(_("W: Psyco optimizing compiler not found."))
 
   # default settings for play_and_quit.
   mode = "SINGLE"
@@ -139,7 +139,7 @@ def main():
   song_list = []
   course_list = []
   for dir in mainconfig["songdir"].split(os.pathsep):
-    print _("Searching for songs in"), dir
+    print(_("Searching for songs in"), dir)
 
     # The order of patterns is significant. Deduplication will remove songs that
     # match a later pattern if they are in the same directory as a song with the
@@ -148,7 +148,7 @@ def main():
     # this case.
     song_list.extend(util.find(dir, ['*.dance', '*.sm', '*.dwi', '*/song.*'], 1))
   for dir in mainconfig["coursedir"].split(os.pathsep):
-    print _("Searching for courses in"), dir
+    print(_("Searching for courses in"), dir)
     course_list.extend(util.find(dir, ['*.crs'], 0))
 
   screen = set_display_mode()
@@ -177,7 +177,7 @@ def main():
     mix = song.info["mix"].lower()
     title = song.info["title"].lower()
     if song.info["subtitle"]: title += " " + song.info["subtitle"].lower()
-    if not song_dict.has_key(mix): song_dict[mix] = {}
+    if mix not in song_dict: song_dict[mix] = {}
     song_dict[mix][title] = song
     record_dict[song.info["recordkey"]] = song
 

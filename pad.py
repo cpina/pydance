@@ -2,13 +2,13 @@
 
 from constants import *
 import pygame, os
-import cPickle as pickle
+import pickle as pickle
 from pygame.locals import *
 import colors
 from fonttheme import FontTheme
 
 (PASS, QUIT, UP, UPLEFT, LEFT, DOWNLEFT, DOWN, DOWNRIGHT,
- RIGHT, UPRIGHT, CENTER, START, SELECT, SCREENSHOT) = range(14)
+ RIGHT, UPRIGHT, CENTER, START, SELECT, SCREENSHOT) = list(range(14))
 
 NAMES = ["", _("quit"), _("up"), _("up-left"), _("left"), _("down-left"),
         _("down"), _("down-right"), _("right"), _("up-right"), _("center"),
@@ -113,7 +113,7 @@ MATS = { (6, 12): A6B12, (14, 10): A14B10, (2, 10): A2B10, (2, 8): A2B8,
 class Pad(object):
 
   (PASS, QUIT, UP, UPLEFT, LEFT, DOWNLEFT, DOWN, DOWNRIGHT,
-   RIGHT, UPRIGHT, CENTER, START, SELECT, SCREENSHOT) = range(14)
+   RIGHT, UPRIGHT, CENTER, START, SELECT, SCREENSHOT) = list(range(14))
 
   def __init__(self, handler = pygame.event):
     self.handler = handler
@@ -126,7 +126,7 @@ class Pad(object):
     try: totaljoy = pygame.joystick.get_count()
     except: totaljoy = 0
 
-    print totaljoy, _("joystick(s) found.")
+    print(totaljoy, _("joystick(s) found."))
 
     # Initialize all the joysticks, print diagnostics.
     for i in range(totaljoy):
@@ -135,7 +135,7 @@ class Pad(object):
       args = (i, m.get_numaxes(), m.get_numbuttons())
       # One hat is two axes.
       args = (i, m.get_numaxes() + 2 * m.get_numhats(), m.get_numbuttons())
-      print _("Joystick %d initialized: %d axes, %d buttons.") % args
+      print(_("Joystick %d initialized: %d axes, %d buttons.") % args)
 
       if args[2] == 32: emsusb2 = i
       elif mat == None and (args[1], args[2]) in MATS: mat = i
@@ -149,32 +149,32 @@ class Pad(object):
       try:
         fn = os.path.join(rc_path, "input.cfg")
         self.events = pickle.load(file(fn, "rb"))
-        for ev in self.events.values(): self.states[ev] = False
+        for ev in list(self.events.values()): self.states[ev] = False
         loaded_input = True
       except:
-        print _("W: Unable to load input configuration file.")
+        print(_("W: Unable to load input configuration file."))
         loaded_input = False
 
     if loaded_input:
-      print _("Loaded input configuration.")
+      print(_("Loaded input configuration."))
     elif emsusb2 != None:
       self.merge_events(0, emsusb2, A4B16) 
-      self.merge_events(1, emsusb2, dict([(k + 16, v) for (k, v) in A4B16.items()]))
-      print _("EMSUSB2 found. Using preset EMSUSB2 config.")
+      self.merge_events(1, emsusb2, dict([(k + 16, v) for (k, v) in list(A4B16.items())]))
+      print(_("EMSUSB2 found. Using preset EMSUSB2 config."))
     elif mat != None:
       joy = pygame.joystick.Joystick(mat)
       axes, but = joy.get_numaxes() + 2 * joy.get_numhats(), joy.get_numbuttons()
-      print _("Initializing player 1 using js%d.") % mat
+      print(_("Initializing player 1 using js%d.") % mat)
       self.merge_events(0, mat, MATS[(axes, but)])
 
       if mat2:
         joy = pygame.joystick.Joystick(mat2)
         axes, but = joy.get_numaxes() + 2 * joy.get_numhats(), joy.get_numbuttons()
-        print _("Initializing player 2 using js%d.") % mat2
+        print(_("Initializing player 2 using js%d.") % mat2)
         self.merge_events(1, mat2, MATS[(axes, but)])
     elif totaljoy > 0:
-      print _("No known joysticks found! If you want to use yours,")
-      print _("you'll have to map its button manually once to use it.")
+      print(_("No known joysticks found! If you want to use yours,"))
+      print(_("you'll have to map its button manually once to use it."))
 
     self.merge_events(-1, -1, KEYS)
 
@@ -182,7 +182,7 @@ class Pad(object):
     pygame.joystick.init()
     try: totaljoy = pygame.joystick.get_count()
     except: totaljoy = 0
-    print totaljoy, _("joystick(s) found.")
+    print(totaljoy, _("joystick(s) found."))
     for i in range(totaljoy): pygame.joystick.Joystick(i).init()
 
   def add_event(self, device, key, pid, event):
@@ -190,25 +190,25 @@ class Pad(object):
     self.states[(pid, event)] = False
 
   def merge_events(self, pid, device, events):
-    for key, event in events.items():
+    for key, event in list(events.items()):
       self.add_event(device, key, pid, event)
 
   def device_key_for(self, keyboard, pid, event):
-    for (device, key), (p, e) in self.events.items():
+    for (device, key), (p, e) in list(self.events.items()):
       if p == pid and e == event:
         if keyboard and device == -1: return pygame.key.name(key)
         elif not keyboard and device != -1: return "%d:%d" % (device, key)
     return "---"
 
   def delete_event(self, pid, keyb, event):
-    for (d, k), (p, e) in self.events.items():
+    for (d, k), (p, e) in list(self.events.items()):
       if (p == pid and e == event and
           ((d == -1 and keyb) or (d != -1 and not keyb))):
         del(self.events[(d, k)])
         self.states[(d, k)] = False
 
   def delete_events(self, pid):
-    for k, v in self.events.items():
+    for k, v in list(self.events.items()):
       if v[0] == pid: del(self.events[k])
       self.states[v] == False
 
@@ -270,7 +270,7 @@ class PadConfig(object):
 
   bg = pygame.image.load(os.path.join(image_path, "bg.png"))
 
-  directions = range(2, 13)
+  directions = list(range(2, 13))
 
   def __init__(self, screen):
     self.screen = screen

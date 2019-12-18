@@ -74,7 +74,7 @@ class Constraint(object):
 
   def meets(self, diffs):
     if self.kind == "name":
-      if diffs.has_key(self.value): return True
+      if self.value in diffs: return True
       else: return False
     elif self.kind == "number":
       for k in diffs:
@@ -106,9 +106,9 @@ class FakePlaylist(object):
   # exception otherwise, so returning float("+inf") or None is
   # impossible. Thus, the largest regular integer is returned, which
   # is as close to "infinity" as we can get.
-  def __len__(self): return sys.maxint
+  def __len__(self): return sys.maxsize
 
-  def next(self):
+  def __next__(self):
     if len(self.songs) == 0:
       error.ErrorMessage(self.screen,
                          _("The difficulty settings you chose result ") +
@@ -132,15 +132,15 @@ class Endless(InterfaceWindow):
       self.player_configs.append(dict(player_config))
 
     self.game_config = dict(game_config)
-    songitems = [s for s in songitems if s.difficulty.has_key(gametype)]
+    songitems = [s for s in songitems if gametype in s.difficulty]
     # Autofail always has to be on for endless, so back up the old value.
     oldaf = mainconfig["autofail"]
     diffs = []
     diff_count = {} # if we see a difficulty 2 times or more, use it
     for song in songitems:
-      if song.difficulty.has_key(gametype):
+      if gametype in song.difficulty:
         for d in song.difficulty[gametype]:
-          if diff_count.has_key(d) and d not in diffs : diffs.append(d)
+          if d in diff_count and d not in diffs : diffs.append(d)
           else: diff_count[d] = True
 
     diffs.sort(util.difficulty_sort)
@@ -152,14 +152,14 @@ class Endless(InterfaceWindow):
 
     mainconfig["autofail"] = 1
 
-    self.constraints = [Constraint("name", songitems[0].difficulty[gametype].keys()[0])]
+    self.constraints = [Constraint("name", list(songitems[0].difficulty[gametype].keys())[0])]
 
     if games.GAMES[gametype].players == 2:
       if games.GAMES[gametype].couple == True:
         # Lock both players to the same constraints in couple modes.
         self.constraints.append(self.constraints[0])
       else:
-        c = Constraint("name", songitems[0].difficulty[gametype].keys()[0])
+        c = Constraint("name", list(songitems[0].difficulty[gametype].keys())[0])
         self.constraints.append(c)
 
     for i, c in enumerate(self.constraints):

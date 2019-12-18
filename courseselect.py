@@ -362,7 +362,7 @@ class CourseSelector(InterfaceWindow):
 
   def _create_folder_list(self):
     sort = SORT_NAMES[mainconfig["sortmode"] % NUM_SORTS]
-    lst = self._folders[sort].keys()
+    lst = list(self._folders[sort].keys())
     lst.sort(lambda x, y: cmp(x.lower(), y.lower()))
     new_courses = [FolderDisplay(folder, sort,
                                  len(self._folders[sort][folder])) for

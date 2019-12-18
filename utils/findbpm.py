@@ -12,12 +12,12 @@ from pygame.locals import *
 VERSION = "0.20"
 
 def usage():
-  print "findbpm %s - find the bpm of a song" % VERSION
-  print "Usage: %s songfile.ogg" % sys.argv[0]
-  print
-  print """\
+  print("findbpm %s - find the bpm of a song" % VERSION)
+  print("Usage: %s songfile.ogg" % sys.argv[0])
+  print()
+  print("""\
 Press a key on time with the beat. An average BPM (for as long as you keep
-tapping) will be calculated."""
+tapping) will be calculated.""")
 
 def show_message(t):
   screen.fill((0,0,0))
@@ -99,8 +99,8 @@ def main():
                                                        x))
 
   if n >= 2:
-    print 'bpm %0.6f' %  bpm
-    print 'offset %d' % int(-moffset + 0.5)
+    print('bpm %0.6f' %  bpm)
+    print('offset %d' % int(-moffset + 0.5))
 
 if __name__ == '__main__':
     main()

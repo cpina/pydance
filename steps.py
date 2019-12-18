@@ -236,9 +236,9 @@ class Steps(object):
 
     self.length = cur_time + toRealTime(cur_bpm, 8.0)
 
-    self.holdinfo = zip(holdlist, holdtimes, releasetimes)
-    self.holdref = zip(holdlist, holdtimes)
-    self.holdbeats = zip(holdbeats, releasebeats)
+    self.holdinfo = list(zip(holdlist, holdtimes, releasetimes))
+    self.holdref = list(zip(holdlist, holdtimes))
+    self.holdbeats = list(zip(holdbeats, releasebeats))
 
     if self.ready == None:
       if len(self.events) > 1:
@@ -309,7 +309,7 @@ class SongData(object):
   def init(self):
     try: music.load(self.filename)
     except:
-      print _("Not a supported file type:"), self.filename
+      print(_("Not a supported file type:"), self.filename)
       self.crapout = 1
 
   def play(self):

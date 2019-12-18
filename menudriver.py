@@ -258,8 +258,8 @@ def do(screen, songdata):
         [_("Folders"), onoff_opt, ("folders",)],
         [_("Timer Display"), onoff_opt, ('fpsdisplay',)],
         [_("Song Info Screen"), tuple_opt, ('songinfoscreen',
-                                         zip([0, 1, 2],
-                                             [_("Never"), _("Multi-song Only"), _("Always")]))],
+                                         list(zip([0, 1, 2],
+                                             [_("Never"), _("Multi-song Only"), _("Always")])))],
         [_("Font (after restart)"), rotate_opt, ('fonttheme', FontTheme.themes())],
         [_("Back"), None, None]
         )

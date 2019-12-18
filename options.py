@@ -20,8 +20,8 @@ from i18n import *
 ON_OFF = [(0, _("Off"), ""), (1, _("On"), "")]
 
 # Description gets assigned 2 both times.
-PP, NAME, DESCRIPTION, VALUES = range(4)
-VALUE, NAME, DESCRIPTION = range(3)
+PP, NAME, DESCRIPTION, VALUES = list(range(4))
+VALUE, NAME, DESCRIPTION = list(range(3))
 
 OPTIONS = {
   # Option specifier tuple:
@@ -36,78 +36,78 @@ OPTIONS = {
             [(0,"","")]),
   "speed": (True, _("Speed"),
             _("Adjust the speed at which the arrows scroll across the screen."),
-            zip([0.25, 0.33, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 4, 5, 8, -200, -300, -400, -500, -600, -700, -800],
+            list(zip([0.25, 0.33, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 4, 5, 8, -200, -300, -400, -500, -600, -700, -800],
                 ["0.25x", "0.33x", "0.50x", "0.75x", "1.0x", "1.5x", "2.0x", "2.5x",
                  "3.0x", "4.0x", "5.0x", "8.0x", "200bpm", "300bpm", "400bpm", "500bpm", "600bpm", "700bpm", "800bpm"],
-                [""] * 12 + [_("Arrows scroll at 200bpm."), _("Arrows scroll at 300bpm."), _("Arrows scroll at 400bpm."), _("Arrows scroll at 500bpm."), _("Arrows scroll at 600bpm."), _("Arrows scroll at 700bpm."), _("Arrows scroll at 800bpm.")])
+                [""] * 12 + [_("Arrows scroll at 200bpm."), _("Arrows scroll at 300bpm."), _("Arrows scroll at 400bpm."), _("Arrows scroll at 500bpm."), _("Arrows scroll at 600bpm."), _("Arrows scroll at 700bpm."), _("Arrows scroll at 800bpm.")]))
             ),
   "transform": (True, _("Transform"),
                 _("Change the step patterns for the song."),
-                zip([0, 1, 2, 3, -1, -2],
+                list(zip([0, 1, 2, 3, -1, -2],
                     [_("Normal"), _("Mirror"), _("Left"), _("Right"), _("Shuffle"), _("Random")],
                     ["", _("Rotate the steps 180 degrees."),
                      _("Rotate the steps 90 degrees to the left."),
                      _("Rotate the steps 90 degrees to the right."),
                      _("Swap all arrows from one direction to another."),
-                     _("Use totally random directions.")])
+                     _("Use totally random directions.")]))
                 ),
   "size": (True, _("Add/Remove Steps"),
            _("Add or remove arrows from step patterns."),
-           zip([1, 2, 0, 3, 4, 5],
+           list(zip([1, 2, 0, 3, 4, 5],
                [_("Tiny"), _("Little"), _("Normal"), _("Big"), _("Quick"), _("Skippy")],
                [_("Only dance to on-beat notes."),
                 _("Only dance to on-beat and half-beat notes."),
                 "", _("Add half-beat steps between on-beat ones."),
                 _("Add steps between half-beat ones."),
-                _("Add gallops between on-beat steps.")])
+                _("Add gallops between on-beat steps.")]))
            ),
   "fade": (True, _("Fade"),
            _("Fade arrows in or out while they scroll."),
-           zip([0, 1, 2, 3, 4, 5],
+           list(zip([0, 1, 2, 3, 4, 5],
                [_("Normal"), _("Sudden"), _("Hidden"), _("Peek"), _("Cycle"), _("Stealth")],
                ["", _("Only display arrows near the top."),
                 _("Only display arrows near the bottom."),
                 _("Only display arrows near the middle."),
                 _("Blink arrows in and out."),
-                _("No arrows are displayed.")])
+                _("No arrows are displayed.")]))
            ),
   "accel": (True, _("Acceleration"),
             _("Accelerate or decelerate arrows."),
-            zip([2, 0, 1],
+            list(zip([2, 0, 1],
                 [_("Brake"), _("Normal"), _("Boost")],
-                [_("Decelerate near the top"), "", _("Accelerate near the top.")])
+                [_("Decelerate near the top"), "", _("Accelerate near the top.")]))
             ),
   "scale": (True, _("Size"),
             _("Change arrow sizes."),
-            zip([0, 1, 2],
+            list(zip([0, 1, 2],
                 [_("Shrink"), _("Normal"), _("Grow")],
                 [_("Smaller arrows near the top."), "",
-                 _("Smaller arrows near the bottom.")])
+                 _("Smaller arrows near the bottom.")]))
             ),
   "scrollstyle": (True, _("Direction"),
                   _("Change the direction arrows scroll."),
-                  zip([0, 1, 2],
+                  list(zip([0, 1, 2],
                       [_("Normal"), _("Reverse"), _("Center")],
                       [_("Arrows go from bottom to top."),
                        _("Arrows go from top to bottom."),
-                       _("Arrows go from the top and bottom to the center.")])
+                       _("Arrows go from the top and bottom to the center.")]))
                   ),
   "jumps": (True, _("Jumps"),
             _("Turn jumps off, or add more."),
-            zip([0, 1, 2],
+            list(zip([0, 1, 2],
                 [_("Off"), _("On"), _("Wide")],
                 [_("Remove jumps from the song."), "",
-                 _("Add jumps on every on-beat step.")])
+                 _("Add jumps on every on-beat step.")]))
             ),
   "spin": (True, _("Spin"),
            _("Rotate arrows as they go up the screen."),
            ON_OFF),
   "colortype": (True, _("Colors"),
                 _("Use colors of arrows to indicate the beat."),
-                zip([1, 4],
+                list(zip([1, 4],
                     [_("Flat"), _("Normal")],
                     [_("All arrows are the same."),
-                     _("Different arrows have different colors.")])
+                     _("Different arrows have different colors.")]))
                 ),
   "dark": (True, _("Dark"),
            _("Don't display the top arrows."),
@@ -129,7 +129,7 @@ OPTIONS = {
             judge.judge_opt),
   "judgescale": (False, _("Judging Windows"),
                  _("The margin of error for your steps."),
-                 zip([2.0 - 0.2 * i for i in range(10)],
+                 list(zip([2.0 - 0.2 * i for i in range(10)],
                      [str(i) for i in range(10)],
                      [_("Window is twice normal size."),
                       _("Window is 9/5 normal size."),
@@ -139,7 +139,7 @@ OPTIONS = {
                       _("Window is 4/5 normal size."),
                       _("Window is 3/5 normal size."),
                       _("Window is 2/5 normal size."),
-                      _("Window is 1/5 normal size.")])
+                      _("Window is 1/5 normal size.")]))
                  ),
 
   "life": (False, _("Life"),

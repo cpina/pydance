@@ -18,6 +18,7 @@ from pygame.mixer import music
 from fonttheme import FontTheme
 
 from i18n import *
+from functools import reduce
 
 SORTS = {
   "subtitle": lambda x: x.info["subtitle"].lower(),
@@ -155,7 +156,7 @@ class SongSelect(InterfaceWindow):
   def __init__(self, songs, courses, screen, game):
 
     InterfaceWindow.__init__(self, screen, "newss-bg.png")
-    songs = [s for s in songs if s.difficulty.has_key(game)]
+    songs = [s for s in songs if game in s.difficulty]
     
     if len(songs) == 0:
       error.ErrorMessage(screen, _("You don't have any songs for the game mode (")
@@ -487,7 +488,7 @@ class SongSelect(InterfaceWindow):
       if not label in difficulties: difficulties[label]=[]
       difficulties[label].append(s)
       # s.folder["difficulty"] is only initialised here.
-      if "difficulty" in s.folder.keys():
+      if "difficulty" in list(s.folder.keys()):
         # min() can't handle arbitrary comparators, so:
         if util.difficulty_sort(s.folder["difficulty"], label)<=0 :
           s.folder["difficulty"] = s.folder["difficulty"]
@@ -495,12 +496,12 @@ class SongSelect(InterfaceWindow):
       else:
         s.folder["difficulty"] = label
 
-      rating = s.difficulty.values()[0]
+      rating = list(s.difficulty.values())[0]
       label = "%2d" % rating
       if not label in ratings: ratings[label]=[]
       ratings[label].append(s)
       # s.folder["rating"] is only initialised here.
-      if "rating" in s.folder.keys():
+      if "rating" in list(s.folder.keys()):
         s.folder["rating"] = min(s.folder["rating"], label) 
       else:
         s.folder["rating"] = label
@@ -510,7 +511,7 @@ class SongSelect(InterfaceWindow):
 
   def _create_folder_list(self):
     sort_name = SORT_NAMES[mainconfig["sortmode"]]
-    lst = self._folders[sort_name].keys()
+    lst = list(self._folders[sort_name].keys())
     lst.sort(lambda x, y: cmp(x.lower(), y.lower()))
     new_songs = [FolderDisplay(folder, sort_name,
                                len(self._folders[sort_name][folder])) for

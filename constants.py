@@ -135,7 +135,7 @@ default_conf = {
   "audiosync": 1,
   }
 
-for game in games.GAMES.values():
+for game in list(games.GAMES.values()):
   default_conf["%s-theme" % game.theme] = game.theme_default
 
 mainconfig = config.Config(default_conf)
@@ -187,7 +187,7 @@ changeable_between = [('speed', {}),
 
 
 pygame.init()
-pygame.event.set_blocked(range(pygame.NUMEVENTS))
+pygame.event.set_blocked(list(range(pygame.NUMEVENTS)))
 pygame.event.set_allowed((pygame.KEYUP, pygame.KEYDOWN, pygame.JOYBUTTONUP, pygame.JOYBUTTONDOWN, pygame.QUIT, pygame.JOYAXISMOTION, pygame.JOYHATMOTION))
 
 # The different colors pydance uses for difficulties in the UI.
@@ -214,4 +214,4 @@ DIFF_COLORS = { "BEGINNER": colors.color[_("white")],
                 "EXPERT": colors.color[_("purple")]
                 }
 
-ZERO_ALPHA = maketrans(''.join([chr(x) for x in range(ord("a"),ord("z")+1)+range(ord("A"),ord("Z")+1)]),'0'*26*2)
+ZERO_ALPHA = maketrans(''.join([chr(x) for x in list(range(ord("a"),ord("z")+1))+list(range(ord("A"),ord("Z")+1))]),'0'*26*2)

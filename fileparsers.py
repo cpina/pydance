@@ -90,7 +90,7 @@ class GenericFile(object):
 # call overhead makes parsing it remarkably slow. See docs/dance-spec.txt
 # for more information.
 class DanceFile(GenericFile):
-  WAITING,METADATA,DESCRIPTION,LYRICS,BACKGROUND,GAMETYPE,STEPS = range(7)
+  WAITING,METADATA,DESCRIPTION,LYRICS,BACKGROUND,GAMETYPE,STEPS = list(range(7))
 
   BEATS = { 'x': 0.25, 't': 0.5, 'u': 1.0/3.0, 'f': 2.0/3.0,
             's': 1.0, 'w': 4.0/3.0, 'e': 2.0,
@@ -774,7 +774,7 @@ class KSFFile(MSDFile):
 
 # Sort by difficulty rating, or by a preset list if equal.
 def sorted_diff_list(difflist):
-  keys = difflist.keys()
+  keys = list(difflist.keys())
   keys.sort((lambda a, b: cmp(difflist[a], difflist[b]) or
              util.difficulty_sort(a, b)))
   return keys
@@ -820,7 +820,7 @@ class SongItem(object):
       try:
         if k in self.info: self.info[k] = self.info[k].decode("utf-8")
       except UnicodeError:
-        print _("W: Non-Unicode key in %s: %s") % (filename, k)
+        print(_("W: Non-Unicode key in %s: %s") % (filename, k))
         self.info[k] = self.info[k].decode("ascii", "ignore")
 
     # Default values
@@ -853,7 +853,7 @@ class SongItem(object):
       recordkey = self.info["mix"] + self.info["title"]
       if self.info["subtitle"]: recordkey += self.info["subtitle"]
       recordkey = recordkey.lower()
-      recordkey = u''.join([c for c in recordkey if c.isalnum()])
+      recordkey = ''.join([c for c in recordkey if c.isalnum()])
       self.info["recordkey"] = recordkey
 
     self.steps = song.steps
@@ -865,7 +865,7 @@ class SongItem(object):
 
     if self.info["mix"] == "Unknown": self.info["mix"] = "No Mix"
 
-    for k, v in games.VERSUS2SINGLE.items():
+    for k, v in list(games.VERSUS2SINGLE.items()):
       if v in self.difficulty and k not in self.difficulty:
         self.difficulty[k] = self.difficulty[v]
         self.steps[k] = self.steps[v]
