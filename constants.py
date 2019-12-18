@@ -213,4 +213,8 @@ DIFF_COLORS = { "BEGINNER": colors.color[_("white")],
                 "EXPERT": colors.color[_("purple")]
                 }
 
-ZERO_ALPHA = str.maketrans(''.join([chr(x) for x in list(range(ord("a"),ord("z")+1))+list(range(ord("A"),ord("Z")+1))]),'0'*26*2)
+if sys.version_info[0] == 2:
+    import string
+    ZERO_ALPHA = string.maketrans(''.join([chr(x) for x in list(range(ord("a"), ord("z") + 1)) + list(range(ord("A"), ord("Z") + 1))]),'0' * 26 * 2)
+else:
+    ZERO_ALPHA = str.maketrans(''.join([chr(x) for x in list(range(ord("a"),ord("z")+1))+list(range(ord("A"),ord("Z")+1))]),'0'*26*2)

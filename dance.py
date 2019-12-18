@@ -1,4 +1,5 @@
 # This is the main loop, which passes events to the Player objects.
+from __future__ import print_function
 
 import pygame
 from constants import *
@@ -9,7 +10,6 @@ from announcer import Announcer
 
 from pygame.sprite import RenderUpdates
 from interface import *
-
 from pygame.mixer import music
 import fontfx
 import gradescreen
