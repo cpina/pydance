@@ -1,6 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # pydance - a dancing game written in Python
 
+from __future__ import print_function
 import os
 import sys
 from getopt import getopt

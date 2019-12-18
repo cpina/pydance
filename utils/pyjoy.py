@@ -1,5 +1,6 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
+from __future__ import print_function
 import os, pygame, pygame.font, pygame.image, pygame.mixer, pygame.movie, time, sys
 from pygame.locals import *
 

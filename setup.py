@@ -1,6 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Set up the appropriate pydance installation makefiles.
 
+from __future__ import print_function
 import os, sys
 
 # Check for the presence of appropriate Python and Pygame versions.

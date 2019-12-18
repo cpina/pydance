@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # This is a little utility program to find the BPM for a song.
 # It uses least squares estimation to fit a BPM and offset to
 # beats tapped in by a key
