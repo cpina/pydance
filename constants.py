@@ -5,7 +5,6 @@
 import sys
 import os
 import locale
-from string import maketrans
 
 from i18n import *
 
@@ -214,4 +213,4 @@ DIFF_COLORS = { "BEGINNER": colors.color[_("white")],
                 "EXPERT": colors.color[_("purple")]
                 }
 
-ZERO_ALPHA = maketrans(''.join([chr(x) for x in list(range(ord("a"),ord("z")+1))+list(range(ord("A"),ord("Z")+1))]),'0'*26*2)
+ZERO_ALPHA = str.maketrans(''.join([chr(x) for x in list(range(ord("a"),ord("z")+1))+list(range(ord("A"),ord("Z")+1))]),'0'*26*2)
