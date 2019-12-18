@@ -59,6 +59,38 @@ SS_HELP = [
   _("F11: Toggle fullscreen - S: Change the sort mode"),
   ]
 
+
+def cmp_to_key(mycmp):
+  # Copied from https://docs.python.org/3/howto/sorting.html for the Python2 to 3 migration
+  'Convert a cmp= function into a key= function'
+
+  class K:
+    def __init__(self, obj, *args):
+      self.obj = obj
+
+    def __lt__(self, other):
+      return mycmp(self.obj, other.obj) < 0
+
+    def __gt__(self, other):
+      return mycmp(self.obj, other.obj) > 0
+
+    def __eq__(self, other):
+      return mycmp(self.obj, other.obj) == 0
+
+    def __le__(self, other):
+      return mycmp(self.obj, other.obj) <= 0
+
+    def __ge__(self, other):
+      return mycmp(self.obj, other.obj) >= 0
+
+    def __ne__(self, other):
+      return mycmp(self.obj, other.obj) != 0
+
+  return K
+
+def cmp3(a, b):
+  return (a > b) - (a < b)
+
 class FolderDisplay(object):
   def __init__(self, name, type, count):
     #TODO: translate name for the sorting option
@@ -512,8 +544,7 @@ class SongSelect(InterfaceWindow):
   def _create_folder_list(self):
     sort_name = SORT_NAMES[mainconfig["sortmode"]]
     lst = list(self._folders[sort_name].keys())
-    # TODO
-    # lst.sort(lambda x, y: cmp(x.lower(), y.lower()))
+    lst.sort(key=cmp_to_key(cmp3))
     new_songs = [FolderDisplay(folder, sort_name,
                                len(self._folders[sort_name][folder])) for
                  folder in lst]
