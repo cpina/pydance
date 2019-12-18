@@ -61,13 +61,13 @@ class AbstractCombo(Listener, pygame.sprite.Sprite):
       tens = self._drawcount / 10
       ones = self._drawcount % 10
       if thousands:
-        thousands = render[thousands % 10]
+        thousands = render[int(thousands % 10)]
         width += thousands.get_width()      
       if hundreds:
-        hundreds = render[hundreds % 10]
+        hundreds = render[int(hundreds % 10)]
         width += hundreds.get_width()
       if tens:
-        tens = render[tens % 10]
+        tens = render[int(tens % 10)]
         width += tens.get_width()
       ones = render[ones]
       width += ones.get_width()

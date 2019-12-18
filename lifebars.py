@@ -58,8 +58,8 @@ class LifeBarDisp(AbstractLifeBar):
 
   def draw(self, time):
     time = int(1000 * time)
-    full = self.full[(time / 33) % len(self.full)]
-    empty = self.empty[(time / 33) % len(self.empty)]
+    full = self.full[(int(time / 33)) % len(self.full)]
+    empty = self.empty[(int(time / 33)) % len(self.empty)]
     
     self.image.blit(empty, [0, 0])
     self.image.set_clip([0, 0,

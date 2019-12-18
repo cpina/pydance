@@ -35,21 +35,20 @@ class OrderedRenderUpdates(RenderClear):
   # A patch has been sent to Pete in the hopes that we can avoid overriding
   # this function, and only override add_internal (pygame 1.5.6)
   def add(self, sprite):
-    has = self.spritedict.has_key
     if hasattr(sprite, '_spritegroup'):
       for sprite in sprite.sprites():
-        if not has(sprite):
+        if sprite not in self.spritelist:
           self.add_internal(sprite)
           sprite.add_internal(self) 
     else:
       try: len(sprite)
       except (TypeError, AttributeError):
-        if not has(sprite):
+        if sprite not in self.spritedict:
           self.add_internal(sprite)
           sprite.add_internal(self) 
       else:
         for sprite in sprite:
-          if not has(sprite):
+          if sprite not in self.spritedict:
             self.add_internal(sprite)
             sprite.add_internal(self) 
 

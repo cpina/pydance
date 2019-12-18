@@ -265,14 +265,36 @@ class Steps(object):
 
     bpm = self.playingbpm
     self.event_idx = idx
-    
-    while (nidx < len(self.events) and self.events[nidx].appear <= time):
+
+    while (compare_less(nidx, len(self.events)) and compare_less_equal(self.events[nidx].appear, time)):
       self.playingbpm = self.events[nidx].bpm
       nevents.append(self.events[nidx])
       nidx += 1   
     self.nevent_idx = nidx
 
     return events, nevents, time, bpm
+
+def compare_less(a, b):
+  # In Python3 comparison is only for the same type of objects
+  if a is None and b is not None:
+    return True
+
+  a=float(a)
+  b=float(b)
+
+  return a < b
+
+
+def compare_less_equal(a, b):
+  # In Python3 comparison is only for the same type of objects
+  if a is None and b is not None:
+    return True
+
+  a = float(a)
+  b = float(b)
+
+  return a <= b
+
 
 # Player-indep data generated from SongItem.
 

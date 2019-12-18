@@ -56,7 +56,7 @@ def write():
   r = {}
   r.update(bad_records)
   r.update(records)
-  pickle.dump(r, file(record_fn, "wb"), 2)
+  pickle.dump(r, open(record_fn, "wb"), 2)
 
 # Highest scores
 def best(index, diffs, game):

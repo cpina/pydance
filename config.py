@@ -63,7 +63,7 @@ class Config(object):
 
   # Write the filename back out to disk.
   def write(self, filename):
-    fi = file(filename, "w")
+    fi = open(filename, "w")
     keys = list(self.user.keys())
     keys.sort()
     for key in keys:
