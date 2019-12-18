@@ -83,8 +83,9 @@ def load_files(screen, files, type, Ctr, args):
   pct = 0
   inc = 100.0 / len(files)
   # Remove duplicates
-  # TODO py2to3
-  # files = list(dict(map(None, files, [])).keys())
+  # Should it remove duplicates based only on the file name ignoring
+  # the directory? (before Python3 it doesn't seem that it did it)
+  files = list(set(files))
   objects = []
   message = _("Found %d %s. Loading...") % (len(files), _(type))
   pbar = TextProgress(FontTheme.loading_screen, message, colors.WHITE, colors.BLACK)
