@@ -5,7 +5,7 @@ import os
 import sys
 from getopt import getopt
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 
 from i18n import *
 

@@ -8,7 +8,7 @@ import locale
 
 from i18n import *
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 STDOUT_ENCODING = "UTF-8"
 
 if sys.stdout.encoding not in (None, ""):
