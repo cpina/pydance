@@ -68,10 +68,10 @@ class FontTheme:
 
     for purpose in cls._FIXED_SIZE:
       fontfn,fontsize = cls._themes[title].fonts[purpose]
-      cls.__dict__[purpose] = pygame.font.Font(fontfn,fontsize)
+      setattr(cls, purpose, pygame.font.Font(fontfn,fontsize))
 
     for purpose in cls._SCALE_SIZE:
-      cls.__dict__[purpose] = cls._themes[title].fonts[purpose]
+        setattr(cls, purpose, cls._themes[title].fonts[purpose])
 
   set = classmethod(set)
 
