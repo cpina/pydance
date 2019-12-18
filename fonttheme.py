@@ -2,7 +2,7 @@
 
 import pygame
 from configparser import *
-import os, dircache
+import os
 from constants import *
 
 # Find the appropriate font size to fit string into max_width pixels,
@@ -48,7 +48,7 @@ class FontTheme:
     for path in search_paths:
       fontdir = os.path.join(path, 'themes', 'font')
       if os.path.exists(fontdir) and os.path.isdir(fontdir):
-        for fontcfg in dircache.listdir(fontdir):
+        for fontcfg in os.listdir(fontdir):
           if fontcfg.endswith('.cfg'):
             theme = FontTheme(os.path.join(fontdir,fontcfg))
             cls._themes[theme.title] = theme
