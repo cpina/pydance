@@ -2,7 +2,6 @@
 # that Steps and SongData want.
 
 import os
-import dircache
 import string
 import codecs
 
@@ -30,7 +29,7 @@ class GenericFile(object):
     dir = os.path.split(self.filename)[0]
     if dir == "": dir = "."
 
-    files = [os.path.join(dir, f) for f in dircache.listdir(dir) if
+    files = [os.path.join(dir, f) for f in os.listdir(dir) if
              f.lower()[-3:] in formats]
 
     files.sort(lambda a, b: cmp(os.stat(a).st_size, os.stat(b).st_size))
@@ -658,7 +657,7 @@ class KSFFile(MSDFile):
     self.info["filename"] = filename
 
     path = os.path.split(filename)[0]
-    for fn in dircache.listdir(path):
+    for fn in os.listdir(path):
       fullname = os.path.join(path, fn)
       fn_lower = fn.lower()
       if fn_lower[-3:] == "ksf": self.parse_ksf(fullname)

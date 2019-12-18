@@ -4,7 +4,6 @@
 import os
 import games
 import zipfile
-import dircache
 
 from io import StringIO
 
@@ -30,7 +29,7 @@ class ThemeFile(object):
     for path in search_paths:
       check = os.path.join(path, "themes", "gfx", size)
       if os.path.isdir(check):
-        for name in dircache.listdir(check):
+        for name in os.listdir(check):
           if cls.is_theme(os.path.join(check, name), games.GAMES[gametype]):
             theme_list.append(name)
     return theme_list

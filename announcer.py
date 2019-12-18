@@ -1,4 +1,4 @@
-import os, random, dircache
+import os, random
 import pygame
 
 from listener import Listener
@@ -12,7 +12,7 @@ class Announcer(Listener):
     for path in search_paths:
       checkpath = os.path.join(path, "themes", "dj")
       if os.path.isdir(checkpath):
-        for name in dircache.listdir(checkpath):
+        for name in os.listdir(checkpath):
           if os.path.isfile(os.path.join(checkpath, name, "djtheme.cfg")):
             theme_list.append(name)
     return theme_list
