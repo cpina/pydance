@@ -9,7 +9,6 @@ VERSION = "1.2.0"
 
 from i18n import *
 
-# fuck you, Python.
 def print_help():
   print()
   print(_("Usage: %s [options]") % sys.argv[0])

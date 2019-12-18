@@ -321,7 +321,7 @@ class MSDFile(GenericFile):
     if len(lyrics) > 0: self.parse_lyrics(lyrics[0])
 
   def find_cdtitle(self, name):
-    # I FUCKING HATE YOU WINDOWS AND YOUR FUCKING FILENAMES, GO TO HELL
+    # Needed for Windows paths
     if "\\" in name: name = name.replace("\\", "/")
     fn = os.path.split(name)[-1]
     for dir in [os.path.join(p, "cdtitles") for p in search_paths]:
