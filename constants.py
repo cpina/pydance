@@ -61,7 +61,7 @@ input_d_path = os.path.join(rc_path, "input.d")
 if not os.path.isdir(input_d_path): os.mkdir(input_d_path)
 
 if not sys.stdout.isatty():
-  sys.stdout = file(os.path.join(rc_path, "pydance.log"), "w")
+  sys.stdout = open(os.path.join(rc_path, "pydance.log"), "w")
   sys.stderr = sys.stdout
 
 import pygame
