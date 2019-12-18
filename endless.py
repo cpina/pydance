@@ -45,8 +45,8 @@ class EndlessDiffDisplay(pygame.sprite.Sprite):
     if self._oldval != (self._c.kind, self._c.value):
       if self._c.kind == "name":
         ctext = fontfx.shadow(_("Select by Difficulty"), FontTheme.Endless_filter_by, colors.WHITE)
-	i18ndifficulty = _(self._c.value)
-	vtext = fontfx.shadow(i18ndifficulty.capitalize(), FontTheme.Endless_filter_range, colors.WHITE)
+        i18ndifficulty = _(self._c.value)
+        vtext = fontfx.shadow(i18ndifficulty.capitalize(), FontTheme.Endless_filter_range, colors.WHITE)
       elif self._c.kind == "number":
         ctext = fontfx.shadow(_("Select by Rating"), FontTheme.Endless_filter_by, colors.WHITE)
         vtext = fontfx.shadow(_("Between %d and %d") % self._c.value, FontTheme.Endless_filter_range,
