@@ -159,9 +159,8 @@ class ReadyGoSprite(pygame.sprite.Sprite):
 
     try:
         go_file = _("go.png")
-	go = os.path.join(go_path,go_file)
+        go = os.path.join(go_path,go_file)
         self._go = pygame.image.load(go).convert()
-
     except:
        go_file = "go.png"
        go = os.path.join(go_path,go_file)
