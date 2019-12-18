@@ -32,7 +32,8 @@ class GenericFile(object):
     files = [os.path.join(dir, f) for f in os.listdir(dir) if
              f.lower()[-3:] in formats]
 
-    files.sort(lambda a, b: cmp(os.stat(a).st_size, os.stat(b).st_size))
+    # TODO
+    # files.sort(lambda a, b: cmp(os.stat(a).st_size, os.stat(b).st_size))
     return files
 
   # Try to extract a subtitle from formats that don't support it (DWI)
@@ -105,7 +106,7 @@ class DanceFile(GenericFile):
     state = DanceFile.METADATA
     state_data = [None, None]
 
-    f = file(filename, "rU")
+    f = open(filename, "rU")
 
     for line in f:
       line = line.strip()
@@ -208,7 +209,7 @@ class MSDFile(GenericFile):
   def __init__(self, filename, need_steps):
     GenericFile.__init__(self, filename, need_steps)
     lines = []
-    f = file(filename, "rU")
+    f = open(filename, "rU")
 
     # If there is a BOM, skip it. Otherwise, don't.
     if f.read(3) != codecs.BOM_UTF8: f.seek(0)
@@ -235,7 +236,7 @@ class MSDFile(GenericFile):
 
   # MSD-style files use DWI's .lrc lyric format
   def parse_lyrics(self, filename):
-    f = file(filename, "rU")
+    f = open(filename, "rU")
     offset = 0
     for line in f:
       line = line.strip()
@@ -392,8 +393,8 @@ class DWIFile(MSDFile):
       if parts[0] == "GAP": self.info["gap"] = -int(float(rest))
       # If filename given, save it, and let MSDFile.find_winfname() have a stab at it.
       elif parts[0] == "FILE": self.info["filename"] = rest
-      elif parts[0] == "TITLE": self.info["title"] = rest.decode("iso-8859-1").encode("utf-8")
-      elif parts[0] == "ARTIST": self.info["artist"] = rest.decode("iso-8859-1").encode("utf-8")
+      elif parts[0] == "TITLE": self.info["title"] = rest
+      elif parts[0] == "ARTIST": self.info["artist"] = rest
       elif parts[0] == "MD5": self.info["md5sum"] = rest
       elif parts[0] == "CDTITLE":
         self.info["cdtitle"] = self.find_cdtitle(rest)
@@ -774,8 +775,9 @@ class KSFFile(MSDFile):
 # Sort by difficulty rating, or by a preset list if equal.
 def sorted_diff_list(difflist):
   keys = list(difflist.keys())
-  keys.sort((lambda a, b: cmp(difflist[a], difflist[b]) or
-             util.difficulty_sort(a, b)))
+  # TODO
+  #keys.sort((lambda a, b: cmp(difflist[a], difflist[b]) or
+  #           util.difficulty_sort(a, b)))
   return keys
 
 # Encapsulates and abstracts the above classes
@@ -816,11 +818,15 @@ class SongItem(object):
         raise RuntimeError(filename + _(" is missing: ") + k)
 
     for k in ["subtitle", "title", "artist", "author", "mix"]:
-      try:
-        if k in self.info: self.info[k] = self.info[k].decode("utf-8")
-      except UnicodeError:
-        print(_("W: Non-Unicode key in %s: %s") % (filename, k))
-        self.info[k] = self.info[k].decode("ascii", "ignore")
+      if sys.version_info[0] == 2:
+        try:
+          if k in self.info: self.info[k] = self.info[k].decode("utf-8")
+        except UnicodeError:
+          print(_("W: Non-Unicode key in %s: %s") % (filename, k))
+          self.info[k] = self.info[k].decode("ascii", "ignore")
+      else:
+        # TOOD simplify
+        if k in self.info: self.info[k] = self.info[k]
 
     # Default values
     for k in ["background", "banner", "revision", "md5sum",

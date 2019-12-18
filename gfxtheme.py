@@ -234,8 +234,8 @@ class Arrow(object):
 
       # Chop up the image.
       self._images = []
-      for i in range(w / theme.size):
-        for j in range(h / theme.size):
+      for i in range(int(w / theme.size)):
+        for j in range(int(h / theme.size)):
           s = pygame.Surface([theme.size, theme.size])
           s.blit(self._image, [-i * theme.size, -j * theme.size])
           s = pygame.transform.rotate(s, rotate)

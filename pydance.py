@@ -82,13 +82,15 @@ def load_files(screen, files, type, Ctr, args):
   pct = 0
   inc = 100.0 / len(files)
   # Remove duplicates
-  files = list(dict(map(None, files, [])).keys())
+  # TODO py2to3
+  # files = list(dict(map(None, files, [])).keys())
   objects = []
   message = _("Found %d %s. Loading...") % (len(files), _(type))
   pbar = TextProgress(FontTheme.loading_screen, message, colors.WHITE, colors.BLACK)
   r = pbar.render(0).get_rect()
   r.center = [320, 240]
   for f in files:
+    objects.append(Ctr(*((f,) + args)))
     try: objects.append(Ctr(*((f,) + args)))
     except RuntimeError as message:
       print(_("E:"), f)

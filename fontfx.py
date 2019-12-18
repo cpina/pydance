@@ -188,8 +188,8 @@ def render_outer(string, width, font):
   remove = 0
   while font.size(s)[0] > width:
     remove += 1
-    left = center + (-remove)/2
-    right = center + remove/2
+    left = int(center + (-remove)/2)
+    right = int(center + remove/2)
     s = string[:left] + "..." + string[right:]
   return s
 

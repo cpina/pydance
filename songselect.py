@@ -512,7 +512,8 @@ class SongSelect(InterfaceWindow):
   def _create_folder_list(self):
     sort_name = SORT_NAMES[mainconfig["sortmode"]]
     lst = list(self._folders[sort_name].keys())
-    lst.sort(lambda x, y: cmp(x.lower(), y.lower()))
+    # TODO
+    # lst.sort(lambda x, y: cmp(x.lower(), y.lower()))
     new_songs = [FolderDisplay(folder, sort_name,
                                len(self._folders[sort_name][folder])) for
                  folder in lst]

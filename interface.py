@@ -429,8 +429,8 @@ class ListBox(pygame.sprite.Sprite):
                                 SRCALPHA, 32)
     self.image.fill([0, 0, 0, 0])
     for i, y in zip(list(range(self._count + 2)),
-                    list(range(-self._h / 2, self._h * (self._count + 1), self._h))):
-      idx = (self._idx + i - 1) % len(self._items)
+                    list(range(int(-self._h / 2), int(self._h * (self._count + 1)), self._h))):
+      idx = int((self._idx + i - 1) % len(self._items))
       t = self._items[idx]
       r = t.get_rect()
       r.centery = y + self._offset
