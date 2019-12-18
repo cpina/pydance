@@ -16,7 +16,7 @@ class AbstractCombo(Listener, pygame.sprite.Sprite):
     self._laststep = 0
     self._centerx = game.sprite_center + (game.player_offset * playernum)
     self._top = 320
-    
+
     fonts = []
     fontfn, basesize = FontTheme.Dance_combo_display
     for x in range(11, 0, -1):
@@ -56,13 +56,13 @@ class AbstractCombo(Listener, pygame.sprite.Sprite):
     if self._drawcount >= self._lowcombo:
       render = self._words[drawsize]
       width = render[-1].get_width()
-      thousands = self._drawcount / 1000
-      hundreds = self._drawcount / 100
-      tens = self._drawcount / 10
-      ones = self._drawcount % 10
+      thousands = int(self._drawcount / 1000)
+      hundreds = int(self._drawcount / 100)
+      tens = int(self._drawcount / 10)
+      ones = int(self._drawcount % 10)
       if thousands:
         thousands = render[int(thousands % 10)]
-        width += thousands.get_width()      
+        width += thousands.get_width()
       if hundreds:
         hundreds = render[int(hundreds % 10)]
         width += hundreds.get_width()
@@ -74,7 +74,7 @@ class AbstractCombo(Listener, pygame.sprite.Sprite):
       height = render[-1].get_height()
       self.image = pygame.surface.Surface([width, height])
       self.image.set_colorkey(ones.get_at([0, 0]), RLEACCEL)
-      left = 0		      
+      left = 0
       if thousands:
         self.image.blit(thousands, [left, 0])
         left+= thousands.get_width()
