@@ -694,7 +694,7 @@ class KSFFile(MSDFile):
         steps = [[], []]
         mode = "5COUPLE"
 
-    for line in file(filename, "rU"):
+    for line in open(filename, "rU"):
       line = line.strip()
       if line[0] == "#":
         line = line[1:]

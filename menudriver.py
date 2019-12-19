@@ -181,7 +181,7 @@ def do(screen, songdata):
 
   sprites = pygame.sprite.RenderUpdates()
   try:
-    lines = file(os.path.join(pydance_path, "CREDITS")).read().split("\n")
+    lines = open(os.path.join(pydance_path, "CREDITS")).read().split("\n")
     lines = [l.decode("utf-8") for l in lines]
     Credits([_("pydance %s") % VERSION] + lines).add(sprites)
   except:
