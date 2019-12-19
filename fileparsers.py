@@ -32,8 +32,7 @@ class GenericFile(object):
     files = [os.path.join(dir, f) for f in os.listdir(dir) if
              f.lower()[-3:] in formats]
 
-    # TODO
-    # files.sort(lambda a, b: cmp(os.stat(a).st_size, os.stat(b).st_size))
+    files.sort(key=lambda x: os.stat(x))
     return files
 
   # Try to extract a subtitle from formats that don't support it (DWI)
