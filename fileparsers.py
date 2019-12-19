@@ -772,12 +772,10 @@ class KSFFile(MSDFile):
     self.difficulty[mode][difficulty] = ratings.get(difficulty, 5)
     self.steps[mode][difficulty] = steps
 
-# Sort by difficulty rating, or by a preset list if equal.
+# Sort by difficulty rating
 def sorted_diff_list(difflist):
   keys = list(difflist.keys())
-  # TODO
-  #keys.sort((lambda a, b: cmp(difflist[a], difflist[b]) or
-  #           util.difficulty_sort(a, b)))
+  keys.sort(key=lambda x: difflist[x])
   return keys
 
 # Encapsulates and abstracts the above classes
