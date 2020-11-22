@@ -92,8 +92,8 @@ def load_files(screen, files, type, Ctr, args):
   r = pbar.render(0).get_rect()
   r.center = [320, 240]
   for f in files:
-    objects.append(Ctr(*((f,) + args)))
-    try: objects.append(Ctr(*((f,) + args)))
+    try:
+      objects.append(Ctr(*((f,) + args)))
     except RuntimeError as message:
       print(_("E:"), f)
       print(_("E:"), message)
